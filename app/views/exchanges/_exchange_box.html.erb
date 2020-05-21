@@ -7,7 +7,7 @@
       <%= form_with url: "/convert", method: :get, id: 'exchange_form' do |f| %>
         <div class='local_currency'>
           <div class='form-group'>
-            <p class='title'>Moeda Local</p>
+            <p class='title'>Converter de</p>
             <%= f.select 'source_currency', options_for_select(currency_list, 'BRL'), {}, { class: 'form-control', id: 'source_currency' } %>
           </div>
 
@@ -18,7 +18,7 @@
 
         <div class='destination_currency'>
           <div class='form-group'>
-            <p class='title'>Moeda Pretendida</p>
+            <p class='title'>Para</p>
             <%= f.select 'target_currency', options_for_select(currency_list, 'EUR'), {}, { class: 'form-control', id: 'target_currency' } %>
           </div>
           <div class='form-group'>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div>
-          <%= f.submit "CONVERTER", class: 'btn btn-primary btn-exchange col-md-12' %>
+          <%= f.submit "SIMULAR", class: 'btn btn-primary btn-exchange col-md-12' %>
         </div>
       <% end %>
     </div>
