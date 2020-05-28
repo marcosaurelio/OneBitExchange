@@ -35,14 +35,3 @@ class ExchangeService
   end
 
 end
-
-# from = 'BTC'
-# to = 'GBP'
-# amount = '10'
-
-# url = 'http://api.coinlayer.com/api/live?access_key=671e23e31c19649c8ab5a4a9dfd2d5b1' +  +'&from=' + from + '&to=' + to + '&amount=' + amount
-
-# JSON.parse(res.body)['target']
-# JSON.parse(res.body)['rates']
-
-# https://blockchain.info/tobtc?currency=BRL&value=1
