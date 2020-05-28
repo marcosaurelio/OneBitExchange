@@ -4,13 +4,21 @@ document.addEventListener('turbolinks:load', function(){
     document.getElementById('result').value = result.value
   })
 
-  document.getElementById('amount').addEventListener('change', function() {
-
-    var elem = document.getElementById('exchange_form') // or $('#myform')[0] with jQuery
-    Rails.fire(elem, 'submit');
-    
-    let temp_currency = document.getElementById('source_currency').value
-    document.getElementById('source_currency').value = document.getElementById('target_currency').value
-    document.getElementById('target_currency').value = temp_currency
+  document.getElementById('reverse_conversion').addEventListener('click', function() {
+    let temp_currency = document.getElementById('target_currency').value
+    if (temp_currency != 'BTC') {
+      document.getElementById('target_currency').value = document.getElementById('source_currency').value
+      document.getElementById('source_currency').value = temp_currency
+      document.forms["exchange_form"].requestSubmit();
+    }
   })
+
+  document.getElementById('amount').addEventListener('change', function() {
+    let temp_currency = document.getElementById('source_currency').value
+    if (temp_currency != 'BTC') {
+      document.forms["exchange_form"].requestSubmit();
+    }
+  })
+
+
 })
