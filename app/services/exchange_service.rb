@@ -21,16 +21,20 @@ class ExchangeService
   private
 
   def get_exchange
-    if @target_currency == 'BTC'
-      url = "https://blockchain.info/tobtc?currency=#{@source_currency}&value=#{@amount}"
-      res = RestClient.get url
-      res.to_s.to_f
-    else
+    if !(@source_currency + @target_currency).index(/BTC/)
       exchange_api_url = Rails.application.credentials[:currency_api_url]
       exchange_api_key = Rails.application.credentials[:currency_api_key]
       url = "#{exchange_api_url}?token=#{exchange_api_key}&currency=#{@source_currency}/#{@target_currency}"
       res = RestClient.get url
       JSON.parse(res.body)['currency'][0]['value'].to_f
+    else
+      url = 'https://bitpay.com/api/rates'
+      res = RestClient.get url
+      if @source_currency == 'BTC'
+        (@amount.to_f * JSON.parse(res.body).find { |r| r['code'] =~ /#{@target_currency}/ }['rate']).round(10)
+      else
+        (@amount.to_f / JSON.parse(res.body).find { |r| r['code'] =~ /#{@source_currency}/ }['rate']).round(10)
+      end
     end
   end
 
